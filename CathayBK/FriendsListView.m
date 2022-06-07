@@ -494,14 +494,14 @@ NSString *friendsRequestUrl4String = @"https://dimanyen.github.io/friend4.json";
         
         // 清空儲存好友名單用的 Array 準備請求新的
         if(friendsArray != nil){
-            @synchronized (self) {
+            @synchronized (friendsArray) {
                 [friendsArray removeAllObjects];
             }
         }
         
         // 清空儲存邀請列表用的 Array 準備請求新的
         if(invitationArray != nil){
-            @synchronized (self) {
+            @synchronized (invitationArray) {
                 [invitationArray removeAllObjects];
             }
         }
@@ -672,7 +672,7 @@ NSString *friendsRequestUrl4String = @"https://dimanyen.github.io/friend4.json";
                                                    //若新的一筆的時間比較晚 則先刪掉舊的(加入新的
                                                    NSLog(@"change newUpdateDateString= %@,updateDateString= %@",newUpdateDateString,updateDateString);
                                                    
-                                                   @synchronized (self) {
+                                                   @synchronized (friendsArray) {
                                                        [friendsArray removeObjectAtIndex:i];
                                                    }
                                                    
@@ -697,7 +697,7 @@ NSString *friendsRequestUrl4String = @"https://dimanyen.github.io/friend4.json";
                                if(addF){
                                    
                                    // 判定為追加則增加一筆新的
-                                   @synchronized (self) {
+                                   @synchronized (friendsArray) {
                                        [friendsArray addObject:item];
                                    }
                                }
@@ -719,7 +719,7 @@ NSString *friendsRequestUrl4String = @"https://dimanyen.github.io/friend4.json";
        
     if(friendsArray != nil && invitationArray != nil){
         
-        @synchronized (self) {
+        @synchronized (invitationArray) {
             [invitationArray removeAllObjects];
         }
         
@@ -735,8 +735,10 @@ NSString *friendsRequestUrl4String = @"https://dimanyen.github.io/friend4.json";
                 
                 if(statusInt == 2){//對方送邀請給使用者
                     
-                    @synchronized (self) {
+                    @synchronized (friendsArray) {
                         [friendsArray removeObjectAtIndex:i];
+                    }
+                    @synchronized (invitationArray) {
                         [invitationArray addObject:friendDictionary];
                     }
                     
@@ -786,7 +788,7 @@ NSString *friendsRequestUrl4String = @"https://dimanyen.github.io/friend4.json";
                         NSLog(@"%@包含 %@",userNameString,searchTextField.text);
                     
                     //找到包含的關鍵字則往前擺放
-                    @synchronized (self) {
+                    @synchronized (friendsArray) {
                         [friendsArray removeObjectAtIndex:i];
                         [friendsArray insertObject:friendDictionary atIndex:insertIndex];
                     }

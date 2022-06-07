@@ -140,7 +140,7 @@ NSString *userRequestUrlString = @"https://dimanyen.github.io/man.json";
                     
                     for(NSDictionary *item in items) {
                         
-                        @synchronized (self) {
+                        @synchronized (userDictionary) {
                             
                             if(userDictionary != nil){
                                 userDictionary = nil;
