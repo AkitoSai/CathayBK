@@ -339,7 +339,7 @@ NSString *friendsRequestUrl4String = @"https://dimanyen.github.io/friend4.json";
             
         }else{
             
-            //好友名單跟邀請列表用都沒有人,則顯示無好友名單時顯示的 ImageView
+            //好友名單或邀請列表有人,則隱藏無好友名單時顯示的 ImageView
             if(midImageView != nil){
                 midImageView.hidden = YES;
             }
